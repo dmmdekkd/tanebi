@@ -227,6 +227,7 @@ export function transformIncomingForwardedSegment(
                     type: 'face',
                     data: {
                         face_id: '' + s.faceId,
+                        is_large: false
                     },
                 };
             }
@@ -267,6 +268,9 @@ export function transformIncomingForwardedSegment(
             type: 'forward',
             data: {
                 forward_id: forwarded.content.resId,
+                title: '',
+                preview: [],
+                summary: ''
             },
         }];
     }
