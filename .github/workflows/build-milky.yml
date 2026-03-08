@@ -50,3 +50,26 @@ jobs:
         with:
           name: tanebi-milky-${{ matrix.identifier }}
           path: ./packages/milky/sea/tanebi-milky${{ matrix.ext }}
+
+  release:
+    name: Publish Release
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+
+      - name: List files
+        run: ls -R artifacts
+
+      - name: Publish Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: auto-build
+          name: tanebi-milky build
+          files: artifacts/**/*
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
