@@ -1,5 +1,8 @@
 name: Build tanebi-milky
 
+permissions:
+  contents: write
+
 on:
   push:
     branches: [ v2 ]
@@ -13,6 +16,7 @@ jobs:
   build:
     name: Build for ${{ matrix.identifier }}
     runs-on: ${{ matrix.os }}
+
     strategy:
       matrix:
         include:
@@ -25,6 +29,7 @@ jobs:
           - os: ubuntu-latest
             identifier: linux-x64
             ext: ''
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -34,7 +39,7 @@ jobs:
         with:
           node-version: 22
 
-      - name: Install pnpm 10
+      - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
           version: 10
@@ -45,7 +50,7 @@ jobs:
       - name: Build tanebi-milky
         run: pnpm run sea
 
-      - name: Upload tanebi-milky artifact
+      - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: tanebi-milky-${{ matrix.identifier }}
@@ -62,7 +67,7 @@ jobs:
         with:
           path: artifacts
 
-      - name: List files
+      - name: Show files
         run: ls -R artifacts
 
       - name: Publish Release
@@ -70,6 +75,8 @@ jobs:
         with:
           tag_name: auto-build
           name: tanebi-milky build
-          files: artifacts/**/*
+          overwrite_files: true
+          files: |
+            artifacts/**/tanebi*
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
