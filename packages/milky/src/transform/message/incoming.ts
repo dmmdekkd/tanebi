@@ -155,9 +155,9 @@ export function transformIncomingSegment(
             type: 'forward',
             data: {
                 forward_id: message.content.resId,
-                title: "",
+                title: '',
                 preview: [],
-                summary: ""
+                summary: ''
             },
         });
     } else {
