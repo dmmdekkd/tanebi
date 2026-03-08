@@ -103,6 +103,7 @@ export function configureEventTransformation(app: MilkyApp) {
             group_id: group.uin,
             user_id: user.uin,
             is_set: isPromote,
+            operator_id: 0,
         });
     });
 
@@ -110,6 +111,7 @@ export function configureEventTransformation(app: MilkyApp) {
         app.emitEvent('group_essence_message_change', {
             group_id: group.uin,
             message_seq: sequence,
+            operator_id: 0,
             is_set: isAdd,
         });
     });
