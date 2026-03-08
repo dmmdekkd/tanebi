@@ -113,6 +113,7 @@ export function transformIncomingSegment(
                     type: 'face',
                     data: {
                         face_id: '' + s.faceId,
+                        is_large: false
                     },
                 };
             }
